@@ -5,6 +5,7 @@ import ticketsRouter from "./routes/tickets"
 import tasksRouter from "./routes/tasks"
 import authRouter from "./routes/auth"
 import mongoose from "mongoose";
+import path from "path";
 
 export const app = express();
 
@@ -15,7 +16,8 @@ mongoose.connect("mongodb+srv://sumbulovich:XsOK5tjiV58UrwSi@cluster0.rqulk.mong
   .then(() => console.log('Connected to testDB database'))
   .catch(() => console.log('Connected failed'));
 
-app.use('/public/2', express.static('public'));
+app.use('/public', express.static(path.join(__dirname, 'public')))
+
 app.use(bodyParser.json());
 
 // CORS

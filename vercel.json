@@ -1,15 +1,12 @@
 {
-  "version": 2,
   "builds": [
-    {
-      "src": "server.ts",
-      "use": "@now/node"
-    }
+    {"src": "package.json", "use": "@now/static-build"},
+    {"src": "/dist/server.js", "use": "@now/node"}
   ],
-  "routes": [
-   {
-       "src": "/(.*)",
-       "dest": "server.ts"
-   }
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/dist/server.js"
+    }
   ]
 }
