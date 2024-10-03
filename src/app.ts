@@ -15,7 +15,7 @@ mongoose.connect("mongodb+srv://sumbulovich:XsOK5tjiV58UrwSi@cluster0.rqulk.mong
   .then(() => console.log('Connected to testDB database'))
   .catch(() => console.log('Connected failed'));
 
-app.use('/images', express.static("images"));
+app.use('/public/2', express.static('public'));
 app.use(bodyParser.json());
 
 // CORS
@@ -26,6 +26,9 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 
 app.use('/api/places', placesRouter);
 app.use('/api/tickets', ticketsRouter);
