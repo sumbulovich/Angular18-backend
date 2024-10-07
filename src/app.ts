@@ -30,10 +30,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api/places', placesRouter);
-// app.use('/api/tickets', ticketsRouter);
-// app.use('/api/tasks', tasksRouter);
-// app.use('/api/auth', authRouter);
+app.use('/api/places', placesRouter);
+app.use('/api/tickets', ticketsRouter);
+app.use('/api/tasks', tasksRouter);
+app.use('/api/auth', authRouter);
 
 // 404
 // app.use((req, res, next) => {

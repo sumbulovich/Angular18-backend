@@ -5,6 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_1 = __importDefault(require("express"));
+const places_1 = __importDefault(require("./routes/places"));
+const tickets_1 = __importDefault(require("./routes/tickets"));
+const tasks_1 = __importDefault(require("./routes/tasks"));
+const auth_1 = __importDefault(require("./routes/auth"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
@@ -24,10 +28,10 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-DEBUG, Authorization");
     next();
 });
-// app.use('/api/places', placesRouter);
-// app.use('/api/tickets', ticketsRouter);
-// app.use('/api/tasks', tasksRouter);
-// app.use('/api/auth', authRouter);
+app.use('/api/places', places_1.default);
+app.use('/api/tickets', tickets_1.default);
+app.use('/api/tasks', tasks_1.default);
+app.use('/api/auth', auth_1.default);
 // 404
 // app.use((req, res, next) => {
 //   if (req.method === "OPTIONS") {
