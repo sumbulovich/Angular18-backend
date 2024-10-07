@@ -1,15 +1,17 @@
 import app from "./src/app";
 
-const server = app
+const port = process.env['PORT'] || 3000;
 
-server.get('/', function(req, res) {
-  res.send('Hello World 2!');
+// Start up the Node server
+const server = app;
+
+server.get('/', function (req, res) {
+  res.send('Hello World!')
 });
 
-server.post('/', function(req, res) {
-  res.send({ status: 'Success', message: 'Hello World' });
+server.listen(port, () => {
+  console.log(`Node Express server listening on http://localhost:${port}`);
 });
 
-server.listen(3000, function () {
-  console.log('Listening on port 3000!');
-});
+export default server
+

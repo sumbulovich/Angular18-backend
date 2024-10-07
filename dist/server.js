@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./src/app"));
+const port = process.env['PORT'] || 3000;
+// Start up the Node server
 const server = app_1.default;
 server.get('/', function (req, res) {
-    res.send('Hello World 2!');
+    res.send('Hello World!');
 });
-server.post('/', function (req, res) {
-    res.send({ status: 'Success', message: 'Hello World' });
+server.listen(port, () => {
+    console.log(`Node Express server listening on http://localhost:${port}`);
 });
-server.listen(3000, function () {
-    console.log('Listening on port 3000!');
-});
+exports.default = server;
