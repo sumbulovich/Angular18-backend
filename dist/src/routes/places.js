@@ -29,8 +29,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const placesController = __importStar(require("../controllers/places"));
 const router = express_1.default.Router(); // Create Express Router
-router.get("/", placesController.getPlaces);
-router.get("/user-places", placesController.getUserPlaces);
-router.put("/user-places", placesController.addUserPlace);
-router.delete("/user-places/:id", placesController.deleteUserPlace);
+router.get('', placesController.getPlaces);
+router.get('/user-places', placesController.getUserPlaces);
+router.put('/user-places', placesController.addUserPlace);
+router.delete('/user-places/:id', placesController.deleteUserPlace);
 exports.default = router;
