@@ -7,7 +7,7 @@ const app_1 = __importDefault(require("./src/app"));
 const port = process.env['PORT'] || 3000;
 // Start up the Node server
 const server = app_1.default;
-// server.listen(port, () => {
-//   console.log(`Node Express server listening on http://localhost:${port}`);
-// });
+server.listen(port, () => {
+    console.log(`Node Express server listening on http://localhost:${port}`);
+});
 exports.default = server;
