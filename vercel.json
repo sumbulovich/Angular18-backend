@@ -2,9 +2,9 @@
   "version": 2,
   "name": "programming-languages-api",
   "builds": [
-    { "src": "/dist/index.js", "use": "@vercel/node" }
+    { "src": "/dist/server.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/dist/index.js" }
+    { "src": "/(.*)", "dest": "/dist/server.js" }
   ]
 }
