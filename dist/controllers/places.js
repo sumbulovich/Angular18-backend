@@ -15,25 +15,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserPlace = exports.addUserPlace = exports.getUserPlaces = exports.getPlaces = void 0;
 const promises_1 = __importDefault(require("node:fs/promises"));
 const node_path_1 = __importDefault(require("node:path"));
-const dataPath = node_path_1.default.join(__dirname, '../../data');
+const dataPath = () => node_path_1.default.join(__dirname, '../../data');
 const getPlaces = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const fileContent = yield promises_1.default.readFile(`${dataPath}/places.json`);
+    yield new Promise((resolve) => setTimeout(resolve, 1000));
+    const fileContent = yield promises_1.default.readFile(`${dataPath()}/places.json`);
     const placesData = JSON.parse(fileContent.toString());
     res.status(200).json({ places: placesData });
 });
 exports.getPlaces = getPlaces;
 const getUserPlaces = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const fileContent = yield promises_1.default.readFile(`${dataPath}/user-places.json`);
+    yield new Promise((resolve) => setTimeout(resolve, 1000));
+    const fileContent = yield promises_1.default.readFile(`${dataPath()}/user-places.json`);
     const places = JSON.parse(fileContent.toString());
     res.status(200).json({ places });
 });
 exports.getUserPlaces = getUserPlaces;
 const addUserPlace = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const placeId = req.body.placeId;
-    const fileContent = yield promises_1.default.readFile(`${dataPath}/places.json`);
+    const fileContent = yield promises_1.default.readFile(`${dataPath()}/places.json`);
     const placesData = JSON.parse(fileContent.toString());
     const place = placesData.find((place) => place.id === placeId);
-    const userPlacesFileContent = yield promises_1.default.readFile(`${dataPath}/user-places.json`);
+    const userPlacesFileContent = yield promises_1.default.readFile(`${dataPath()}/user-places.json`);
     const userPlacesData = JSON.parse(userPlacesFileContent.toString());
     let updatedUserPlaces = userPlacesData;
     if (!userPlacesData.some((p) => p.id === place.id)) {
