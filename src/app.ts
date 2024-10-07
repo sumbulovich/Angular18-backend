@@ -36,11 +36,11 @@ app.use('/api/tasks', tasksRouter);
 app.use('/api/auth', authRouter);
 
 // 404
-// app.use((req, res, next) => {
-//   if (req.method === "OPTIONS") {
-//     return next();
-//   }
-//   res.status(404).json({ message: "404 - Not Found" });
-// });
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+  res.status(404).json({ message: "404 - Not Found" });
+});
 
 export default app

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./src/app"));
 const server = app_1.default;
 server.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.send('Hello World 2!');
 });
 server.post('/', function (req, res) {
     res.send({ status: 'Success', message: 'Hello World' });

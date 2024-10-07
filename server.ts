@@ -3,7 +3,7 @@ import app from "./src/app";
 const server = app
 
 server.get('/', function(req, res) {
-  res.send('Hello World!');
+  res.send('Hello World 2!');
 });
 
 server.post('/', function(req, res) {

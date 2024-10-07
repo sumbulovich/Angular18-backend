@@ -33,10 +33,10 @@ app.use('/api/tickets', tickets_1.default);
 app.use('/api/tasks', tasks_1.default);
 app.use('/api/auth', auth_1.default);
 // 404
-// app.use((req, res, next) => {
-//   if (req.method === "OPTIONS") {
-//     return next();
-//   }
-//   res.status(404).json({ message: "404 - Not Found" });
-// });
+app.use((req, res, next) => {
+    if (req.method === "OPTIONS") {
+        return next();
+    }
+    res.status(404).json({ message: "404 - Not Found" });
+});
 exports.default = app;
