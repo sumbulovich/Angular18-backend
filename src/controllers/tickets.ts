@@ -11,7 +11,7 @@ let pE: { pageSize: number, pageIndex: number, length: number };
 async function getPaginatedTickets(): Promise<Ticket[]> {
   pE.length = await TicketModel.countDocuments()
   if (!pE.pageSize) return TicketModel.find();
-  return TicketModel.find().skip(pE.pageSize * pE.pageIndex).limit(pE.pageSize);
+  return TicketModel.find().sort({ _id: -1 }).skip(pE.pageSize * pE.pageIndex).limit(pE.pageSize);
 }
 
 export const getTickets = async (req: Request, res: Response) => {
@@ -25,14 +25,24 @@ export const getTickets = async (req: Request, res: Response) => {
   res.status(200).json({ tickets, pageEvent: pE });
 }
 
+export const getTicket = async (req: Request, res: Response) => {
+  const ticket = await TicketModel.findOne({ _id: req.params.id });
+  if (ticket) {
+    res.status(200).json(ticket);
+  } else {
+    res.status(400).json({ message: 'Not found' });
+  }
+}
+
 export const createTicket = async (req: Request, res: Response) => {
   const image: string = req.file ? `${req.protocol}://${req.get('host')}/public/tickets/${req.file?.filename}` : '';
   const ticket = new TicketModel({ ...req.body, image });
   await ticket.save(); // await TicketModel.create(ticket)
 
   const tickets: Ticket[] = await getPaginatedTickets();
-  pE.pageIndex = Math.floor(pE.length / pE.pageSize); // Set last page
-  if (!(pE.length % pE.pageSize)) pE.pageIndex -= 1; // Set previous page if no elements on current page
+  // pE.pageIndex = Math.floor(pE.length / pE.pageSize); // Set last page
+  // if (!(pE.length % pE.pageSize)) pE.pageIndex -= 1; // Set previous page if no elements on current page
+  pE.pageIndex = 0; // Set first page
   res.status(200).json({ tickets, pageEvent: pE });
 }
 
