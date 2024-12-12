@@ -6,6 +6,7 @@ import path from "node:path";
 const dataPath = () => path.join(__dirname, '../../data')
 
 // Copy file in a writable temporary location
+// The server's filesystem is read-only, except for the /tmp directory
 fs.copyFile(`${dataPath()}/user-places.json`, '/tmp/user-places.json');
 
 export const getPlaces = async (req: Request, res: Response) => {
@@ -54,15 +55,10 @@ export const deleteUserPlace = async (req: Request, res: Response) => {
 
   const updatedUserPlaces = userPlacesData.filter((place: Place) => place.id.toString() !== req.params['id']);
 
-
-  try {
-    await fs.writeFile(
-      `/tmp/user-places.json`,
-      JSON.stringify(updatedUserPlaces)
-    );
-  } catch (err) {
-    res.status(500).json(err)
-  }
+  await fs.writeFile(
+    `/tmp/user-places.json`,
+    JSON.stringify(updatedUserPlaces)
+  );
 
   res.status(200).json({ userPlaces: updatedUserPlaces });
 }
