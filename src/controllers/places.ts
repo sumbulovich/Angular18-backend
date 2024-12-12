@@ -51,10 +51,10 @@ export const deleteUserPlace = async (req: Request, res: Response) => {
 
   const updatedUserPlaces = userPlacesData.filter((place: Place) => place.id.toString() !== req.params['id']);
 
-  await fs.writeFile(
-    `${dataPath()}/user-places.json`,
-    JSON.stringify(updatedUserPlaces)
-  );
+  // await fs.writeFile(
+  //   `${dataPath()}/user-places.json`,
+  //   JSON.stringify(updatedUserPlaces)
+  // );
 
   res.status(200).json({ userPlaces: updatedUserPlaces });
 }
