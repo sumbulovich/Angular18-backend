@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUserPlace = exports.addUserPlace = exports.getUserPlaces = exports.getPlaces = void 0;
 const promises_1 = __importDefault(require("node:fs/promises"));
 const node_path_1 = __importDefault(require("node:path"));
-const dataPath = () => node_path_1.default.join(__dirname, '../../tmp');
+const dataPath = () => node_path_1.default.join(__dirname, '../../data');
 const getPlaces = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield new Promise((resolve) => setTimeout(resolve, 1000));
     const fileContent = yield promises_1.default.readFile(`${dataPath()}/places.json`);

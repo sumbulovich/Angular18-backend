@@ -2,6 +2,6 @@
   "env": {
     "JTW_SECRET_KEY": "customSecretOrPrivateKeyForEncodingAlgorithm"
   },
-  "ignore": ["tmp/*.json"]
+  "ignore": ["data/*.json"]
 }
 

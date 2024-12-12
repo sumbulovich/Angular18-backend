@@ -3,7 +3,10 @@ import fs from "node:fs/promises";
 import { Place } from "../models/place";
 import path from "node:path";
 
-const dataPath = () => path.join(__dirname, '../../tmp')
+const dataPath = () => path.join(__dirname, '../../data')
+
+// Copy file in a writable temporary location
+fs.copyFile(`${dataPath()}/user-places.json`, '/tmp/user-places.json');
 
 export const getPlaces = async (req: Request, res: Response) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -27,7 +30,7 @@ export const addUserPlace = async (req: Request, res: Response) => {
   const fileContent = await fs.readFile(`${dataPath()}/places.json`);
   const placesData = JSON.parse(fileContent.toString());
 
-  const fileContent2 = await fs.readFile(`${dataPath()}/user-places.json`);
+  const fileContent2 = await fs.readFile(`/tmp/user-places.json`);
   const userPlacesData = JSON.parse(fileContent2.toString());
 
   const place = placesData.find((place: Place) => place.id === req.body.placeId);
@@ -38,7 +41,7 @@ export const addUserPlace = async (req: Request, res: Response) => {
   }
 
   await fs.writeFile(
-    `${dataPath()}/user-places.json`,
+    `/tmp/user-places.json`,
     JSON.stringify(updatedUserPlaces),
   );
 
@@ -46,17 +49,18 @@ export const addUserPlace = async (req: Request, res: Response) => {
 }
 
 export const deleteUserPlace = async (req: Request, res: Response) => {
-  const userPlacesFileContent = await fs.readFile(`${dataPath()}/user-places.json`);
+  const userPlacesFileContent = await fs.readFile(`/tmp/user-places.json`);
   const userPlacesData = JSON.parse(userPlacesFileContent.toString());
 
   const updatedUserPlaces = userPlacesData.filter((place: Place) => place.id.toString() !== req.params['id']);
 
+
   try {
     await fs.writeFile(
-      `${dataPath()}/user-places.json`,
+      `/tmp/user-places.json`,
       JSON.stringify(updatedUserPlaces)
     );
-  } catch(err) {
+  } catch (err) {
     res.status(500).json(err)
   }
 
