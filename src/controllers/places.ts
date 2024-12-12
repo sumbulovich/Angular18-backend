@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import { Place } from "../models/place";
 import path from "node:path";
 
-const dataPath = () => path.join(__dirname, '../../data')
+const dataPath = () => path.join(__dirname, '../../tmp')
 
 export const getPlaces = async (req: Request, res: Response) => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -46,7 +46,7 @@ export const addUserPlace = async (req: Request, res: Response) => {
 }
 
 export const deleteUserPlace = async (req: Request, res: Response) => {
-  const userPlacesFileContent = await fs.readFile("./data/user-places.json");
+  const userPlacesFileContent = await fs.readFile(`${dataPath()}/user-places.json`);
   const userPlacesData = JSON.parse(userPlacesFileContent.toString());
 
   const updatedUserPlaces = userPlacesData.filter((place: Place) => place.id.toString() !== req.params['id']);
