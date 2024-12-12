@@ -39,7 +39,7 @@ export const addUserPlace = async (req: Request, res: Response) => {
 
   await fs.writeFile(
     `${dataPath()}/user-places.json`,
-    JSON.stringify(updatedUserPlaces)
+    JSON.stringify(updatedUserPlaces),
   );
 
   res.status(200).json({ userPlaces: updatedUserPlaces });
@@ -51,10 +51,14 @@ export const deleteUserPlace = async (req: Request, res: Response) => {
 
   const updatedUserPlaces = userPlacesData.filter((place: Place) => place.id.toString() !== req.params['id']);
 
-  // await fs.writeFile(
-  //   `${dataPath()}/user-places.json`,
-  //   JSON.stringify(updatedUserPlaces)
-  // );
+  try {
+    await fs.writeFile(
+      `${dataPath()}/user-places.json`,
+      JSON.stringify(updatedUserPlaces)
+    );
+  } catch(err) {
+    res.status(500).json(err)
+  }
 
   res.status(200).json({ userPlaces: updatedUserPlaces });
 }
