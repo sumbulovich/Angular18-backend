@@ -14,6 +14,9 @@ dotenv.config({ path: '.env.local' });
 const app = express();
 
 // Serve static files from the /public directory
+app.get('/env', (req, res) => {
+  res.send('Hello World! ' + process.env['MONGODB_PSW'])
+});
 app.use('/public', express.static(path.join(__dirname, '../public')));
 app.use('/data', express.static(path.join(__dirname, '../data')));
 
