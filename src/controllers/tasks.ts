@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { Task, TaskModel } from "../models/task";
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export const getTasks = async (req: Request, res: Response) => {
   const tasks: Task[] = await TaskModel.find();
   res.status(200).json(tasks);
@@ -10,6 +14,8 @@ export const createTasks = async (req: Request, res: Response) => {
   // Get AuthUser's _id from decodedToken from the middleware
   const creator = res.locals.decodedToken._id;
   const task = new TaskModel({ ...req.body, creator });
+  await delay(1000);
+
   await task.save(); // await TaskModel.create(task)
   res.status(200).json(task);
 }
@@ -30,6 +36,7 @@ export const editTaskStatus = async (req: Request, res: Response) => {
 
 export const getUserTasks = async (req: Request, res: Response) => {
   const tasks = await TaskModel.find({ userId: req.params.userId });
+  await delay(1000);
   if (tasks) res.status(200).json(tasks);
   else res.status(400).json({ message: 'Not found' });
 }
